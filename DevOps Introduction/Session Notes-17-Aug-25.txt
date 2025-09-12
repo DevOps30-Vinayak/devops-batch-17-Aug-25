@@ -1,0 +1,130 @@
+Software Setup on the system
+------------------------------------------------------
+
+1. enable wsl and install ubuntu on powershell
+     - Windows 10 + 
+
+ Start Menu -> Turn Windows features on or off
+      select (Check):
+              Virtual Machine Platform
+              Windows subsystem for linux
+              Hyper-v(if it is there)
+ Restart your machine
+
+
+Start menu -> Powershell (Run as administrator)
+
+https://learn.microsoft.com/en-us/windows/wsl/install
+
+Run commands:
+    1. wsl --list --online
+    2. wsl --install or
+      wsl --install Ubuntu-22.04
+
+   3. Ubuntu will be added in start menu
+   4. Open ubuntu and set username and password
+   5. set <<your name>> as username  
+
+-----------------------------------------------------------------------------------
+
+2. git and gitbash
+
+
+
+Coverage in the training
+=============================
+1. DevOps Introduction
+2. Git and GitHub
+3. Linux commands and scripting
+4. Containerization:
+      a. Docker
+      b. Kubernetes
+5. Cloud Native applications - AWS Cloud 
+6. Infrastructure as Code - Terraform 
+7. Server Configuration - Ansible
+8. Monitoring - Prometheus/ Grafana / Logging tools
+9. CI/ CD  workflows - Jenkins
+10. Build tools - Maven / NPM / Nexus or ArgoCD
+
+------------------------------------------------------------------------------------------------
+
+What is DevOps?
+
+
+Dev - Developers (To develop the application) 
+    development + testing          
+Ops - Operation (To provide the infrastructure - on primses server or cloud machines with right capacity)
+
+
+Goals:
+              Achieve business goals
+               fasten the development with quality software
+               feedback loop
+
+Challenge - "CHANGE of REQUIREMENTS" 
+               
+
+software development Cycle 
+  - waterfall model
+  - agile approach
+      values of agile:
+           -  individual over processes - communication within the team
+           -  work quality software vs documentation
+           - customer collaboration vs contract negotiations
+           - Responding to changes vs follow a plan 
+
+agile framework
+
+  - scrum - 
+  - Kanban
+  - Safe
+
+
+DevOps is based on Agile values + Culture + Set of Tools to automate the task 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
