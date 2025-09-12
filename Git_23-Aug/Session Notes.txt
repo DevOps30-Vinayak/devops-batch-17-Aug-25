@@ -1,0 +1,365 @@
+
+  GIT & GITHUB
+============================
+ Git is a version control system software
+Git is a distributed version control system
+
+   - On local machine - Git installed / use Git in gitbash (command line), visual studio code, eclipse, IntelliJ IDE
+
+   - on Remote server - Git is integrated with GitHub Server (public), GitLab (public/private), BitBucket 
+
+
+For our training - GitHub Server
+  
+  team collaborate the GitHub repository
+
+
+What is version control system?
+
+
+on local machine - folders -> collection of files -> name_versions (1.0, 0.0.1, month)
+
+why we give some unique versions?
+   - track the files over the time 
+  - track the changes in the code
+
+Git will add versions to the code
+   - it tracks changes in the code
+
+  Application Development on local machine
+
+   Project folder  : where source code will be added
+       src
+          -folder for main source code
+                     *.java
+                     *.java
+          - folder for test source code        
+                     test1 - 5 test case
+                     test2 - 4 new test case
+
+testing
+    - unit testing (Junit, Mockito, jasmine, jest.., playwright)
+    - integration testing 
+   - performance testing (JMETER, LoadRunner)
+  -  UI testing (Selenium , Cucumber..)
+ -  UAT testing 
+
+
+
+   Version control system:
+
+    1. Centralized
+           Apache Subversion (SVN)
+           CVSC 
+
+     2. Distributed
+
+               GIT
+               Mercurial
+
+
+  GitHub Server 
+       under Profile
+             - Settings
+                    - Developer setting (used to creates token for GitHub)
+
+                    - SSH and GOG keys - to create SSH Key to connect GitHub server
+
+
+
+ GitHub Server Repository can be accessed using HTTP/HTTPS: 443 & SSH (secured Shell) protocol : 22 
+
+
+  when I selected Readm.md
+
+          create Readme.md
+         opened the files
+         added the content intot then file
+         Internally GitHub command: 
+                git add Readme.md
+                git commit -m "Initial commit" - Commit ID is generated with a uniques number
+
+
+  To create branch
+
+                 git branch feature1 
+                  git checkout feature1
+
+    first-git-repo
+
+        - main (branch)
+
+                  -c3 (a69d7e3c4ab072bf9e18d8dacd4915ff3d6e3f50) - Updated index.html with h2 tag
+                            index.html 
+                             
+                  -c2 (8befe180ca5ac6e15cf884d504f236e4b0179718) - Created index.html with h1 tag
+                                index.html
+                  - c1 (6d3b19fa8f02dfad5b23e70c5a20b685a7b36a67) - Initial Commit
+                                    Readme.md
+
+
+
+Scenario:  WE want to clone the remote repo onto the local system.
+
+
+Remote repo ---------------------------------> local repo
+                                                                        - git clone <URL>
+                                                                    
+ local repo ------------------------------------> Remote repo
+                                                                    blank repo
+repo 
+                   git remote origin add <URL>
+
+
+ls -la - see hidden files
+
+. -> represents current directory
+.. -> represents the parent directory
+
+
+gitbash
+
+project (repository)
+main
+   Readme.md
+   index.html
+   styles.css
+
+
+Stages of Git workflow
+=========================
+
+1. Working Directory (ls)
+2.  Stagging area
+
+          - git add -> take from unstagging (RED) to stagging (GREEN)
+                  TWO choices
+                       a) commit the files
+                       b)  Unstage the file - git restore --staged <filename>
+
+3. Committed to Local Repository - git commit -m "..."
+
+4. To push commits to the remote repo - git push <remote> main
+
+
+To configure in Visual studio code
+
+or
+
+create a  project on local machine and enable it with git repository
+  - git init 
+  - add files
+ - commit the changes on local git repo
+ - push changes to the remote repo.
+
+
+
+Agenda
+    - local git repository
+    - commits (logs, diff, revert, reset)
+
+'JSON - stands for JavaScript object notation
+
+Configuration in DevOps tools are done:
+1. JSON - JavaScript Object Notation
+ {
+  employee-id: 100,
+  employeeName: "john",
+  status: true,
+  project: "finance-project",
+ "skills": [{}, {}, {}]
+}
+2. YAML
+
+
+
+
+
+git add
+
+ git add <file name>  <file name>
+git add .
+
+
+log
+ git log (full information of commit)
+git log --oneline
+
+branch
+git branch 
+
+main branch
+------------------
+32a3bd9 (HEAD -> main) index.html created
+67bd091 app.js updated with greet function
+750b407 initial commit
+
+diff
+  git diff commit1 commit2
+  git diff commit1 commit 2  -- <file name>
+  git diff commit1 commit2 -- src/app.js
+
+
+top create a new branch in the local repo
+git branch <branch-name>
+git checkout <branch-name> / git switch <branch-name>
+
+
+or
+
+git checkout -b feature1
+
+
+
+login-features
+------------------------
+32a3bd9 (HEAD -> login-feature, main) index.html created
+67bd091 app.js updated with greet function
+750b407 initial commit
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+ - Create a project and enable git repository
+ - creating branches
+- git log , git revert, git reset...
+
+Agenda:
+
+   Merging the branches - completed
+   push the branches to the remote repository - completed 
+   fetch and pull from the remote repository - next session  - completed
+   create a pull request on the GitHub server - next session
+   stash command - self-learning for this week/ Cherry-pick -self-learning command - Link shared
+   Rebase - example in next session
+
+
+What is merge?
+Merging in Git is the process of combining the changes from one or more branches into another. This integrates independent lines of development into a single, unified history.
+
+
+
+
+
+                           MErge 
+One branch -----------------------------> Other branch
+login-feature                                          main
+(Source)                                                 (Destination)                  
+app.js file                                                app.js file
+
+
+Two type of merges:
+
+1. Fast Forward merge 
+     git merge login-feature main
+2. Merge with conflicts (Manual intervention)
+       External tools like KDiff, Perforce, Beyond Compare
+
+login-feature commits
+$ git log --oneline
+6798563 (HEAD -> login-feature) style.css added
+32a3bd9 index.html created
+67bd091 (main) app.js updated with greet function
+750b407 initial commit
+
+$ cd C:/DevOps-batch-17-Aug-25/Git_23-Aug/node-demo-app
+
+login-feature (Source)
+=======================
+$ git log --oneline
+96a765c (HEAD -> login-feature) index.html and app.js is updated with h2 tag and multiply function
+b74f765 style.css is updated for h1 and h2 property
+6798563 style.css added
+32a3bd9 index.html created
+67bd091 app.js updated with greet function
+750b407 initial commit
+
+main (Destination)
+=================================
+$ git log --oneline
+dbff8b3 (HEAD -> main) app.js is updated with sum function
+6ac587f style.css is updated with background-color and border
+6798563 style.css added
+32a3bd9 index.html created
+67bd091 app.js updated with greet function
+750b407 initial commit
+
+main (Destination)
+$ git log --oneline
+ebbf304 (HEAD -> main) merged app.js and style.css with changes
+96a765c (login-feature) index.html and app.js is updated with h2 tag and multiply function
+b74f765 style.css is updated for h1 and h2 property
+dbff8b3 app.js is updated with sum function
+6ac587f style.css is updated with background-color and border
+6798563 style.css added
+32a3bd9 index.html created
+67bd091 app.js updated with greet function
+750b407 initial commit
+
+Merge - a history of merges
+Rebase - a clean and linear history of commits
+Example: security code required on all branches, instead of merge, use rebase 
+
+
+ ssh key created and added to the GitHub repository
+
+ssh - secureshell protocol (port: 22) ---------------------------> GitHub Repository
+
+Use ssh-keygen command to generate a ssh key and add it on the GitHub repository
+
+What is ssh-keygen tool ?
+
+The ssh-keygen command is a utility used to generate, manage, and convert authentication keys for the Secure Shell (SSH) protocol. It creates a public-private key pair used for secure authentication when connecting to remote servers (GitHub Server), eliminating the need for password-based logins.
+
+To generate ssh key (public-private) Key Pair
+ - ssh-keygen algorithm
+
+2 algorthim:
+ED25519
+RSA
+
+
+Git Stash - https://www.atlassian.com/git/tutorials/saving-changes/git-stash
+
+
+Fork the existing repository
+Forking in GitHub refers to the process of creating a personal copy of an existing repository, known as the "upstream" or "original" repository, into your own GitHub account. This copy, or "fork," becomes a new, independent repository under your ownership.
+
+git fetch / git pull
+
+fectch all the new commits + branches + refs from GitHub server
+
+
+git pull  = git fetch + git merge
+
+
+
+
+First git pull , then git push
+
+local repo -> 
+
+1. create a new file in src/abc.txt
+
+2. commit abc.txt in the local repo
+
+
+
+git tag types : 
+1. lightweight tag   - git tag <tag-name>
+2. annotated tag - along with tag information , who is the creator, date - git tag  -a <tag-name>
+
+
+https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-tag
+
+
+
+
+
+
+
+
+
+
+
