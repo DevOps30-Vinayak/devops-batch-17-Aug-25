@@ -1,0 +1,111 @@
+Linux  Operating System
+------------------------------------------------------
+- for DevOps - Writing Bash Scripts/ Searching and Filtering / Update the configuration files/ Managing Users and accounts/ Install the packages 
+
+
+Check Installation of WSL Ubuntu
+=================================
+1. Way 
+Machine - Windows 10 Pro + / Windows 11
+On Windows ->  Turn Windows On or Off
+
+ - Windows subsystem for Linux
+ - Virtual Machine platform 
+ - Hyper-V 
+
+Open Powershell -> Run as administrator
+
+wsl --install
+
+or 
+
+Start Menu -> Microsoft Store -> Ubuntu -> Click Get
+
+
+2. Way -> Oracle Virtual Machine VirtualBox (ubuntu)
+
+3. Way -> Public Cloud (AWS/ Azure) -> VM (Any OS Ubuntu/ Windows)
+
+Cloud :
+
+    - Virtual Machine (Infrastructure)
+    - Networking 
+    - Storage
+
+
+3- tier applications : Application is spreaded into layers (Frontend, Backend, Database)
+
+Modern applications requirements:
+------------------------------------------------
+Architecture of applications - Monolithic vs Microservice architecture
+
+Portability - Running application in any environment (Development (Develop the code), Testing (Unit, Performance, UAT), Production - Deployment + Infrastructure)
+
+Scalability - Increase/decrease the instances of applications 10 Instances --------> 50 Instances (Horizontal scaling)
+
+Vertical scaling  - Increasing the system / machine capacity (Resources - CPU, RAM, Harddisk, Network adapter)
+
+
+High Availability -  Minimum Down time of applications/servers
+
+Resilience - Application resilience is the ability of an application to react to problems in one of its components and still provide the best possible service.
+
+Linux Architecture
+
+- It is an operating system
+- Every application running on Linux is a process 
+- Open source 
+- Command line interaction
+
+In Linux, the kernel is the fundamental core of the operating system (OS) that acts as the central intermediary between the computer's hardware and software, managing resources like memory, CPU, and devices.
+
+Created by Linus Torvalds, the open-source Linux kernel is the essential component of Linux-based systems
+
+User (use shell program) ---------------------> KERNEL -------------------> Resources (RAM, CPU, HDD)
+ Linux programs (commands)
+
+
+Linux utilities - Package manager, Devices Drivers, Compiler (gcc)
+
+package manager - install / uninstall the packages/ software in Linux distribution.
+
+
+Tool              Package Manager
+Java              Maven
+Node             NPM
+.NET              Nuget
+Python           PIP
+Ubuntu          apt / apt-get           
+Centos           yum 
+RedHat          rpm         
+Debian          apt 
+Fedora          dnf
+Kali               apt
+
+
+Linux users
+1. Root users / Super user (sudo) - all administrative permissions 
+2. Normal User - with restricted access
+
+
+
+commands:
+$ pwd  - home directory  /home/<username>  (/ - root directory , home - all users home directory , <username> - user)
+
+$ sudo apt install tree
+
+After installing $tree
+
+$ which tree
+
+                                      
+variables : to store the value
+- user-defined variables
+- Environment variables - Linux initialize environment variables
+
+What are environment variables ?
+Variables stored in OS, KEY & VALUE pairs
+
+
+
+
