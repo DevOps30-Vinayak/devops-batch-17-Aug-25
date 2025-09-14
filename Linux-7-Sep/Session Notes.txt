@@ -107,5 +107,121 @@ What are environment variables ?
 Variables stored in OS, KEY & VALUE pairs
 
 
+Types of shell program
+Ubuntu -> BASH (Bourne Again  Shell)
+
+
+
+cd / -> Change Directory (/ - go to root directory)
+
+under / (root directory)
+
+
+ls -> to list the content of that directory
+
+
+                drwxr-x---
+
+  column1 - 1field (d or - or c or s)
+
+  remaining 9 field   - divide in set of 3
+
+         rwx                       r-x                                 ---
+         (USER)                   (GROUP)                     (others)
+
+r - read (octal value - 2)
+w - write (octal value - 4)
+x - execute (octal value - 1)
+
+rw - 
+r
+x
+wx
+
+
+ chmod  (Change mode)
+
+
+
+Two types of paths that you can give:
+1. absolute path - full path :  /home/user1/story/story1/story2/abc.txt
+2. Relative path - from current directory
+
+Command absolute path /
+etc -> passwd
+
+Travel from etc -> user directory
+
+
+
+mkdir <directory-name>
+
+story
+       story1
+             story2
+
+cd story
+mkdir story1
+cd story1
+mkdir story2
+
+
+
+
+cd story
+mkdir -p story1/story2
+
+
+user1:~/devops_linux/story/story1/story2/story2.1/story2.1.1$ cd ../../../../..
+user1:~/devops_linux$ cd -
+/home/user1/devops_linux/story/story1/story2/story2.1/story2.1.1
+user1:~/devops_linux/story/story1/story2/story2.1/story2.1.1$ cd ~/devops_linux
+user1:~/devops_linux$ cd -
+/home/user1/devops_linux/story/story1/story2/story2.1/story2.1.1
+
+user1:~/devops_linux/story/story1/story2/story2.1/story2.1.1$ cd /home/user1/devops_linux
+
+
+rm to remove files
+
+To remove directories
+
+To remove a directory in Linux, use either the rmdir command for empty directories 
+
+or the rm command with the -r option for non-empty directories.
+
+rm -r <directory> // recursive directory
+rm -r -f <directory> // recursive + force
+
+copy the file or directory
+
+cp  <source> <destination>
+
+cp ./  <destination>
+
+To copy all files from story into /mnt directory
+sudo cp -r story  /mnt/14-sep-25/
+
+move the files from extra1 -> extra, also delete the extra1 directory
+
+
+In Linux, && is a conditional command separator used in shell scripting and the command line. It acts as a logical AND operator, chaining commands together such that the command on the right-hand side of && will only execute if the command on the left-hand side succeeds. 
+
+mkdir new_directory && cd new_directory && touch file.txt
+
+
+Searching & filtering commands
+find command
+grep command
+sort command
+sed command
+
+Pipe operator
+
+
+
+
+
+
 
 
