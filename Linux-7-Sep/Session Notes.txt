@@ -219,6 +219,122 @@ sed command
 Pipe operator
 
 
+d      rwx        r-x            r-x
+        user       group       others
+        r-4        r - 4          r-4
+        w-2
+         x-1      x-1            x-1
+         ===     ===         =====
+           7         3            3
+
+
+find  7(user) 3(group) 3(others)
+Recap  of last session:
+
+ 1. BAsics of Linux
+ 2. BAsh shell - ls, creating directories and file, file operations (rm, cp, mv)
+3. Change ownership - chmod permission files/directories
+
+ r - 4
+w - 2
+x - 1
+
+u +x / -x
+
+4. searching files - find - type f  / size/ permissions/ exexcute
+
+5. Editors: nano / vim or vi  
+
+6.  standard input - 0/ output - 1 / error -  2
+
+ls abc 2> error.txt
+
+6. grep command - search the patterns in the files
+
+log file
+
+   http:// GET  IP address:
+
+find, grep, sed, awk
+
+Note: sort, awk command
+
+sed - for replacing text / deleting text / inserting new text in the file
+
+Syntax:   sed 's/old-pattern/new-pattern/'  <file-name>
+
+
+
+
+ sed 's/abcget/DELETE/' file1 -> output of replacement will be on console not in the actual file
+
+delete - command delimiter - , sed '2,4d' <file-name>
+
+Common Options:
+-i: Edit files in place. Without this, sed prints changes to standard output.
+-n: Suppress automatic printing of pattern space. Use with p command to print specific lines.
+-e SCRIPT: Add the script to the commands to be executed. Useful for multiple commands. 
+-f SCRIPT_FILE: Read editing commands from a specified file.
+-r or -E: Use extended regular expressions.
+
+
+
+$(expr)
+
+mathematical expressions
+arithmetic operator +, - * / %
+relation operator (true or false)  - 10 >=20  In Linux 10 -ge 20
+-ge, -le, lt, -gt, -eq, -ne 
+
+ - https://www.freecodecamp.org/news/shell-scripting-crash-course-how-to-write-bash-scripts-in-linux/
+networking
+
+
+
+
+User ID - $ echo ${UID}
+1000
+
+User id $ id
+uid=1000(user1) gid=1000(user1)...
+
+Username $ id -u -n
+
+on command line
+$ if [ "${UID}" -eq 0 ]
+$ then
+$ echo "You are root."
+$ fi
+
+Use up arrow key
+user1:~/devops_linux$ if [ "${UID}" -eq 0 ]; then echo "You are root."; fi
+
+To create new user and update passwd
+$ sudo useradd jill
+$ cat /etc/passwd  
+sudo su - jill
+No password required
+
+exit
+
+$ sudo passwd jill
+Set the new password
+
+$ su - jill
+exit
+
+To create user will complete details
+sudo useradd -u 1004 -d /home/jill -s /bin/bash jill
+
+To delete the user
+sudo userdel jill
+
+To create a new group
+sudo groupadd development
+
+cat /etc/group
+
+sudo usermod -aG development jill
 
 
 
