@@ -1,0 +1,262 @@
+DevOps Engineer
+==================
+- Infrastructure (AWS, Terraform)
+- Networking commands - Linux 
+- Containerization (Deploy application on production server) - Docker , Kubernetes
+- Setup CI/CD pipeline to deploy applications (JENKINS)
+
+
+Environments in a DevOps Lifecycle
+----------------------------------------------------------------------------------------------------------------------------------
+Development :  Build and verify application components.
+
+Write source code for domains like E-Commerce, Health Care, Banking, Finance.
+
+Example API: http://calc/x/10/y/20.
+
+Perform Unit Tests (check individual functions) and Integration Tests (validate multiple components together).
+
+Collaborate on the shared codebase using GitHub (Version Control, Branching, Pull Requests).
+
+
+Testing : Ensure application correctness, stability, and performance before production.
+Manual Testing → e.g., Postman for API validation.
+
+Automation Testing → e.g., Selenium, Cypress for regression and UI automation.
+
+Performance Testing → e.g., JMeter for load, stress, and scalability testing.
+
+Production : Deploy applications in a reliable, scalable, and secure manner.
+
+Infrastructure Setup → IaaS (Cloud Virtual Machines, Networks)
+
+Use IaC (Infrastructure as Code) tools (Terraform, Ansible, CloudFormation).
+
+Application Deployment → Ensure Scalability, High Availability (HA), Fault Tolerance, and Minimal Downtime.
+
+Automation & Scaling →
+AWS Auto Scaling → automatically scale Virtual Machines (EC2).
+
+Kubernetes Auto Scaling → scale Pods based on CPU/Memory metrics.
+
+Horizontal scaling (adding more servers/instances).
+
+Vertical scaling (adding more resources to existing servers).
+   -------------------------------------------------------------------------------------------------------------------------------              
+Dev (Code + Build + Test)
+
+Ops (Deploy + Operate + Scale)
+------------------------------------------------------------------------------------------------------------------------------
+Docker and Kubernetes - Work on Containers
+
+Containers - are used to deployment of applications / to run application with less down time 
+                   - portability of applications
+
+
+Scenario : NodeJS application ? Develop backend APIS in JavaScript
+                  - API develop - Node has library - expressJS
+
+You need to run the nodejs application on the local machine.
+Copy files from Windows  ------------> Linux
+                                       WinSCP utility tool
+
+Problems:              
+1. We need OS (Linux)
+2. Software - NODEJS installed, for coding - vim/nano
+3. Application structure
+     package.json: Contains project metadata, scripts, and dependencies.
+     .env: Stores environment variables (e.g., database credentials, API keys). // optional
+     .gitignore: Specifies files and directories to be ignored by Git.
+      app.js: The main entry point of the application, often responsible for starting the server and setting up middleware.
+
+4. Write the code
+5. test the code by executing the application  local machine
+
+
+ Two ways to install                      
+1. package manager suggestion
+  - apt update -y
+  - apt install nodejs
+
+2. Manual installation
+1. Download tar file
+2. Extract tar file (tar -xvf...)
+3. MV command to move extract folder to /usr/local/lib/nodejs
+4. Export the Path of NodeJS
+
+
+nodeJS - install
+source code - app.js , package.json
+install the libraries added in package.json  (npm install)
+Run the application (node app.js)
+
+
+28-Sep-25
+================================================
+Agenda:
+
+What are containers? 
+Difference between VM and containers.
+Setup Docker on Linux - completed
+Docker architecture - completed
+Run containers on Docker - Next session
+
+
+Containers package the application code along with its dependencies (runtime, libraries, configuration, tools) into a single portable unit.
+------------------------------------------------------------------------------------------
+Containers do not bundle a full OS kernel like a virtual machine.
+
+They share the host OS kernel, but can package minimal OS user-space components (like Ubuntu base image).
+
+That’s why they are lightweight compared to VMs.
+
+Summary - Containers do not include a full operating system kernel. They share the host OS kernel, making them lightweight compared to virtual machines.
+----------------------------------------------------------------------------------------------------
+
+Containers have a life cycle. Containers go through states like Created → Running → Stopped → Removed.
+---------------------------------------------------------------------------------------------------------
+Containers run in isolation using Linux features like namespaces (for process, network, filesystem isolation).
+----------------------------------------------------------------------------------------------------------
+Each container is assigned resources using Linux cgroups and gets its own network namespace, configured by the container runtime (e.g., Docker).
+
+Objective: Run the node application 
+Problems:
+1. OS  
+Setup the necessary software and dependencies on local machine
+2. If application has to run on different machine/ different environments - same setup has to be replicated on every machines
+     tools - versions
+      os - match
+
+Development Env ----------------------------------> Testing Env -------------------------> Production Env
+         App                                                             App                                            App
+
+
+----------------------------------------------------------------------------------------------------------------------------->
+Match: OS/ Software with right versions
+
+3. No portability
+4. Application start time is high 
+
+
+Solution : Run applications in containers 
+
+           
+ 
+Linux - Every application is a process and isolated from each isolations
+
+cgroups - control and limit resource (CPU, RAM..) usage of process groups
+
+Two-Tier appl
+ReactJS <---------> NodeJS -------------------------------> MYSQL
+
+1 Container  = 1 Application (Best practice)
+1 Container = NODEJS
+1 Container = MYSQL
+
+
+Containers vs VM - https://www.netapp.com/blog/containers-vs-vms/
+
+
+setup Docker
+
+  - on Windows (Docker Desktop runs on WSL Linux)
+  - Install on WSL Linux
+  - Install on AWS/ Azure VM
+ 
+
+  - Install on WSL Linux
+  https://docs.docker.com/engine/install/
+
+1. sudo su
+
+1. sudo apt-get update
+
+2. sudo apt-get install ca-certificates curl
+
+3. sudo install -m 0755 -d /etc/apt/keyrings
+
+4. sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+5. sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+6. echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+7. sudo apt-get update
+
+8. sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+9. test docker
+docker
+
+10. exit // from sudo
+
+11. Normal user login - sudo usermod -aG docker $USER
+
+12. Restart the Linux (WSL Ubnbtu) again
+
+14. id
+check the docker group
+
+15. docker info
+Client:
+ ...
+Server:
+....
+
+
+Setup an account on Docker HUB to push docker images
+username:
+password:
+personal email id
+
+Docker architecture - https://docs.docker.com/get-started/docker-overview/
+
+Docker CLI commands
+
+docker info
+docker images / docker image ls
+docker ps // to see running containers
+docker container ls // to see list of running containers
+
+see the default network
+docker network ls
+
+see the storage of docker
+docker volume ls
+
+
+
+
+Docker
+   - Containers
+  - Images
+ - volumes
+ - networks
+ - docker compose
+
+
+
+
+OOP programming
+  Class - a blueprint or template (Set of instructions)
+  Objects - Runtime instances
+
+Docker two main components
+ Images - a blueprint or template (set of instructions)
+ Containers - Runtime instances
+
+Tools to scale containers are primarily container orchestrators such as Kubernetes, Docker Swarm, and AWS ECS. These platforms automate the deployment, scaling.
+
+
+what is Cgroups in docker?
+cgroups (control groups): Used to allocate and limit CPU, memory, etc. for containers.
+
+
+what are namespaces in Linux?
+In Linux, a namespace is a kernel feature that isolates and virtualizes system resources for a set of processes.
+
+It makes processes inside a namespace think they have their own instance of a resource (like PID numbers, network interfaces, or mount points), even though they are actually sharing the host system’s kernel.
+
