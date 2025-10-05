@@ -1,0 +1,966 @@
+DevOps Engineer
+
+==================
+
+\- Infrastructure (AWS, Terraform)
+
+\- Networking commands - Linux
+
+\- Containerization (Deploy application on production server) - Docker , Kubernetes
+
+\- Setup CI/CD pipeline to deploy applications (JENKINS)
+
+
+
+
+
+Environments in a DevOps Lifecycle
+
+---
+
+Development :  Build and verify application components.
+
+
+
+Write source code for domains like E-Commerce, Health Care, Banking, Finance.
+
+
+
+Example API: http://calc/x/10/y/20.
+
+
+
+Perform Unit Tests (check individual functions) and Integration Tests (validate multiple components together).
+
+
+
+Collaborate on the shared codebase using GitHub (Version Control, Branching, Pull Requests).
+
+
+
+
+
+Testing : Ensure application correctness, stability, and performance before production.
+
+Manual Testing → e.g., Postman for API validation.
+
+
+
+Automation Testing → e.g., Selenium, Cypress for regression and UI automation.
+
+
+
+Performance Testing → e.g., JMeter for load, stress, and scalability testing.
+
+
+
+Production : Deploy applications in a reliable, scalable, and secure manner.
+
+
+
+Infrastructure Setup → IaaS (Cloud Virtual Machines, Networks)
+
+
+
+Use IaC (Infrastructure as Code) tools (Terraform, Ansible, CloudFormation).
+
+
+
+Application Deployment → Ensure Scalability, High Availability (HA), Fault Tolerance, and Minimal Downtime, Application start time
+
+
+
+Automation \& Scaling →
+
+AWS Auto Scaling → automatically scale Virtual Machines (EC2).
+
+
+
+Kubernetes Auto Scaling → scale Pods based on CPU/Memory metrics.
+
+
+
+Horizontal scaling (adding more servers/instances).
+
+
+
+Vertical scaling (adding more resources to existing servers).
+
+   -------------------------------------------------------------------------------------------------------------------------------
+
+Dev (Code + Build + Test)
+
+
+
+Ops (Deploy + Operate + Scale)
+
+---
+
+Docker and Kubernetes - Work on Containers
+
+
+
+Containers - are used to deployment of applications / to run application with less down time
+
+                   - portability of applications
+
+
+
+
+
+Scenario : NodeJS application ? Develop backend APIS in JavaScript
+
+                  - API develop - Node has library - expressJS
+
+
+
+You need to run the nodejs application on the local machine.
+
+Copy files from Windows  ------------> Linux
+
+                                       WinSCP utility tool
+
+
+
+Implementation:
+
+1\. We need OS (Linux)
+
+2\. Software - NODEJS installed, for coding - vim/nano
+
+3\. Application structure
+
+     package.json: Contains project metadata, scripts, and dependencies.
+
+     .env: Stores environment variables (e.g., database credentials, API keys). // optional
+
+     .gitignore: Specifies files and directories to be ignored by Git.
+
+      app.js: The main entry point of the application, often responsible for starting the server and setting up middleware.
+
+
+
+4\. Write the code
+
+5\. test the code by executing the application  local machine
+
+
+
+
+
+ Two ways to install
+
+1\. package manager suggestion
+
+  - apt update -y
+
+  - apt install nodejs
+
+
+
+2\. Manual installation
+
+1\. Download tar file
+
+2\. Extract tar file (tar -xvf...)
+
+3\. MV command to move extract folder to /usr/local/lib/nodejs
+
+4\. Export the Path of NodeJS
+
+
+
+
+
+nodeJS - install
+
+source code - app.js , package.json
+
+install the libraries added in package.json  (npm install)
+
+Run the application (node app.js)
+
+
+
+
+
+28-Sep-25
+
+================================================
+
+Agenda:
+
+
+
+What are containers?
+
+Difference between VM and containers.
+
+Setup Docker on Linux - completed
+
+Docker architecture - completed
+
+Run containers on Docker - Next session
+
+
+
+
+
+Containers package the application code along with its dependencies (runtime, libraries, configuration, tools) into a single portable unit.
+
+---
+
+Containers do not bundle a full OS kernel like a virtual machine.
+
+
+
+They share the host OS kernel, but can package minimal OS user-space components (like Ubuntu base image).
+
+
+
+That’s why they are lightweight compared to VMs.
+
+
+
+Summary - Containers do not include a full operating system kernel. They share the host OS kernel, making them lightweight compared to virtual machines.
+
+---
+
+
+
+Containers have a life cycle. Containers go through states like Created → Running → Stopped → Removed.
+
+---
+
+Containers run in isolation using Linux features like namespaces (for process, network, filesystem isolation).
+
+---
+
+Each container is assigned resources using Linux cgroups and gets its own network namespace, configured by the container runtime (e.g., Docker).
+
+
+
+Objective: Run the node application
+
+Problems:
+
+1\. OS
+
+Setup the necessary software and dependencies on local machine
+
+2\. If application has to run on different machine/ different environments - same setup has to be replicated on every machines
+
+     tools - versions
+
+      os - match
+
+
+
+Development Env ----------------------------------> Testing Env -------------------------> Production Env
+
+         App                                                             App                                            App
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------->
+
+Match: OS/ Software with right versions
+
+
+
+3\. No portability
+
+4\. Application start time is high
+
+
+
+
+
+Solution : Run applications in containers
+
+
+
+ 
+
+ 
+
+Two-Tier appl
+
+ReactJS <---------> NodeJS -------------------------------> MYSQL
+
+
+
+1 Container  = 1 Application (Best practice)
+
+1 Container = NODEJS
+
+1 Container = MYSQL
+
+
+
+
+
+Containers vs VM - https://www.netapp.com/blog/containers-vs-vms/
+
+
+
+
+
+setup Docker
+
+
+
+  - on Windows (Docker Desktop runs on WSL Linux)
+
+  - Install on WSL Linux
+
+  - Install on AWS/ Azure VM
+
+ 
+
+
+
+  - Install on WSL Linux
+
+  https://docs.docker.com/engine/install/
+
+
+
+1\. sudo su
+
+
+
+1\. sudo apt-get update
+
+
+
+2\. sudo apt-get install ca-certificates curl
+
+
+
+3\. sudo install -m 0755 -d /etc/apt/keyrings
+
+
+
+4\. sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+
+
+5\. sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+
+6\. echo \\
+
+  "deb \[arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \\
+
+  $(. /etc/os-release \&\& echo "${UBUNTU\_CODENAME:-$VERSION\_CODENAME}") stable" | \\
+
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+
+7\. sudo apt-get update
+
+
+
+8\. sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+
+9\. test docker
+
+docker
+
+
+
+10\. exit // from sudo
+
+
+
+11\. Normal user login - sudo usermod -aG docker $USER
+
+
+
+12\. Restart the Linux (WSL Ubnbtu) again
+
+
+
+14\. id
+
+check the docker group
+
+
+
+15\. docker info
+
+Client:
+
+ ...
+
+Server:
+
+....
+
+
+
+
+
+Setup an account on Docker HUB to push docker images
+
+username:
+
+password:
+
+personal email id
+
+
+
+Docker architecture - https://docs.docker.com/get-started/docker-overview/
+
+
+
+Docker CLI commands
+
+
+
+docker info
+
+docker images / docker image ls
+
+docker ps // to see running containers
+
+docker container ls // to see list of running containers
+
+
+
+see the default network
+
+docker network ls
+
+
+
+see the storage of docker
+
+docker volume ls
+
+
+
+
+
+
+
+
+
+Docker
+
+   - Containers
+
+  - Images
+
+ - volumes
+
+ - networks
+
+ - docker compose
+
+
+
+
+
+
+
+
+
+OOP programming
+
+  Class - a blueprint or template (Set of instructions)
+
+  Objects - Runtime instances
+
+
+
+Docker two main components
+
+ Images - a blueprint or template (set of instructions)
+
+ Containers - Runtime instances
+
+
+
+Tools to scale containers are primarily container orchestrators such as Kubernetes, Docker Swarm, and AWS ECS. These platforms automate the deployment, scaling.
+
+
+
+
+
+what is Cgroups in docker?
+
+cgroups (control groups): Used to allocate and limit CPU, memory, etc. for containers.
+
+
+
+
+
+what are namespaces in Linux?
+
+In Linux, a namespace is a kernel feature that isolates and virtualizes system resources for a set of processes.
+
+
+
+It makes processes inside a namespace think they have their own instance of a resource (like PID numbers, network interfaces, or mount points), even though they are actually sharing the host system’s kernel.
+
+
+
+04-Oct-25
+
+Containers
+
+  - Containers do not OS
+
+ - Containers are portable - You can run in any env where docker engine.
+
+    Images are recipes to create the container
+
+ - Containers are isolated from each other
+
+
+
+Docker
+
+
+
+   - creates images, containers, network, volumes
+
+   Linux (ubuntu) - /var/lib/docker (info about docker components/objects are stored by Docker)
+
+
+
+   - Docker  creates virtual network  with IP address - 172.17.0.1
+
+   - Docker has written network drivers
+
+
+
+Type of applications that can run in a containers
+
+---
+
+Web application (React, Node, Python, Java)
+
+DB Servers (postgres, MySQL, Oracle.., MongodB)
+
+Light-weight Linux OS tools (Debain, Alpine, Busybox, Ubuntu
+
+Tools - Jenkins, Terraform, Promoetheus, Grafana
+
+
+
+Installation of Jenkins
+
+Windows -> WSL (Ubuntu) -> update OS -> Install Java, then Install JEnkins -> Access Jenkins server
+
+
+
+or
+
+
+
+Browser -> Login into AWS -> Create Linux VM ->  Install Java, then Install Jenkins -> Access Jenkins server
+
+
+
+
+
+With Docker -> Windows -> WSL (ubuntu) -> Docker -> Take Ready image of Jenkins -> Run Container \[docker container run <<jenkins image>>] -> Access the application
+
+
+
+Browser -> Login into AWS -> Create Linux VM ->  Docker -> Take Ready image of Jenkins -> Run Container \[docker container run <<jenkins image>>] -> Access the application
+
+
+
+Browser -> Login into AWS -> AWS ECS -> Container Technology (Elastics Container service) -> Ready Image -> ECS will run and manage containers
+
+
+
+
+
+
+
+
+
+Images ???
+
+1\. Write the image and build it
+
+or
+
+2\. Pull the ready image from docker repository (Available on Internet - Docker Hub / AWS - ECR or Azure cloud)
+
+
+
+
+
+Practicals
+
+
+
+
+
+docker image ls
+
+
+
+or
+
+
+
+docker images
+
+
+
+
+
+Name of Image : <nameofimage>:<tag>
+
+
+
+jenkins:2.60.3 // Linux - libraies?
+
+jenkins:alpine  // Linux - alpine libraries
+
+Jenkins:latest // latest is the default tag
+
+
+
+
+
+
+
+docker pull // old command
+
+
+
+
+
+main command category
+
+image
+
+container
+
+volume
+
+network
+
+
+
+sub-command category
+
+pull
+
+push
+
+build
+
+
+
+
+
+1\. Pulled the hello-world image
+
+
+
+docker image pull hello-world:latest
+
+
+
+or
+
+docker image pull hello-world
+
+  // use default tag : latest
+
+
+
+Compares the sha256 for the image to be pulled
+
+
+
+SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that converts any input data into a fixed-size 256-bit (32-byte) "hash" or "fingerprint".
+
+
+
+docker container run options
+
+ --name : to name a container / -n
+
+-p : assign application port to the host (used for web  app and db)
+
+--attach /--detach
+
+--network - assign network to a container
+
+--volume - assign storage to a container
+
+--env - set the environment variables for the container(app)
+
+--rm - delete the container info
+
+
+
+
+
+By default, all application output / logs are displayed on the Linux terminal (screen)
+
+
+
+
+
+Running the container - docker container run hello-world:latest
+
+
+
+
+
+main(){
+
+
+
+printf("hello-world")
+
+for(1 to 100){..}
+
+exit 1
+
+}
+
+
+
+console-based app - will terminate once code execution is completed
+
+web app -> based on http, hence waits for client request
+
+
+
+Life of container  = Life of application
+
+
+
+
+
+docker container ls - running containers
+
+docker ps -a (Exited containers)
+
+
+
+Container Life Cycle
+
+1\. Verify if the image exists take it from local machine, if not pull the image
+
+2\. The container is created in the memory
+
+3\. Run the container
+
+4\. start the application inside the container CMD /hello
+
+5\. Display the output of application on the Linux console
+
+6\. If application exited, exit the container
+
+
+
+
+
+Container info
+
+ - container id
+
+\- container name
+
+
+
+
+
+
+
+
+
+Limit the resources for containers
+
+===========================================
+
+--cpu
+
+
+
+docker container run --name helloapp   --cpu "2"   --memory "512m" hello-world:latest
+
+
+
+
+
+tools to check if image is valid or not in docker
+
+ - Docker Scout
+
+\- Trivy - CI/CD
+
+\- Synk
+
+
+
+
+
+After the stopped containers are deleted, you can also delete images from the docker
+
+
+
+docker rmi <<image-id>>/ <image-name>>
+
+
+
+
+
+Scenario : To containerize a web application.
+
+application name - nginx
+
+
+
+NGINX ?
+
+ - Web server on which you deploy web applications
+
+ - open source
+
+ - Reverse proxy for other applications
+
+ - Default listens to incoming request on PORT 80
+
+
+
+**docker search nginx**
+
+**docker search --filter=is-official=true nginx**
+
+**docker image pull nginx:latest**
+
+**docker container run --name web1 -p 8089:80 nginx:latest**
+
+
+
+Expose the PORT of container(App) ---------------> Host machine (ubuntu)
+
+-p  <HOST PORT>:<CONTAINER-PORT>
+
+-p  8089:80
+
+
+
+--name or -n
+
+--publish or -p
+
+
+
+Mapping host port to container port
+
+docker run -p <host\_port>:<container\_port> <image\_name>
+
+
+
+
+
+Sent the request to application from host
+
+curl http://localhost:8089
+
+
+
+Web browser - http://localhost:8089
+
+
+
+
+
+docker start web1
+
+
+
+
+
+docker container inspect <container-name>
+
+docker image inspect nginx:latest
+
+docker network inspect bridge
+
+
+
+
+
+You can read and write inside the container. The data written inside the container will be avaialble in the container till it exists.
+
+
+
+
+
+Volumes - To store data outside the container.
+
+
+
+
+
+ docker exec -it web1 bash -c "apt update \&\& apt install -y iputils-ping"
+
+
+
+
+
+
+
+
+
+**Write and build our custom images**
+
+
+
+Name - Dockerfile
+
+
+
+ - is a set of instruction
+
+
+
+  Instruction                            value
+
+   FROM  (1st Instruction)            ....
+
+   RUN
+
+   LABEL
+
+   COPY
+
+   ADD
+
+   WORKDIR
+
+   EXPOSE
+
+   VOLUME
+
+   CMD
+
+   ENTRYPOINT
+
+   ARGS
+
+   ENV
+
