@@ -32,7 +32,7 @@ Infrastructure Setup → IaaS (Cloud Virtual Machines, Networks)
 
 Use IaC (Infrastructure as Code) tools (Terraform, Ansible, CloudFormation).
 
-Application Deployment → Ensure Scalability, High Availability (HA), Fault Tolerance, and Minimal Downtime.
+Application Deployment → Ensure Scalability, High Availability (HA), Fault Tolerance, and Minimal Downtime, Application start time
 
 Automation & Scaling →
 AWS Auto Scaling → automatically scale Virtual Machines (EC2).
@@ -60,7 +60,7 @@ You need to run the nodejs application on the local machine.
 Copy files from Windows  ------------> Linux
                                        WinSCP utility tool
 
-Problems:              
+Implementation:           
 1. We need OS (Linux)
 2. Software - NODEJS installed, for coding - vim/nano
 3. Application structure
@@ -142,10 +142,6 @@ Solution : Run applications in containers
 
            
  
-Linux - Every application is a process and isolated from each isolations
-
-cgroups - control and limit resource (CPU, RAM..) usage of process groups
-
 Two-Tier appl
 ReactJS <---------> NodeJS -------------------------------> MYSQL
 
@@ -259,4 +255,155 @@ what are namespaces in Linux?
 In Linux, a namespace is a kernel feature that isolates and virtualizes system resources for a set of processes.
 
 It makes processes inside a namespace think they have their own instance of a resource (like PID numbers, network interfaces, or mount points), even though they are actually sharing the host system’s kernel.
+
+04-Oct-25
+Containers
+  - Containers do not OS
+ - Containers are portable - You can run in any env where docker engine. 
+    Images are recipes to create the container
+ - Containers are isolated from each other
+
+Docker
+
+   - creates images, containers, network, volumes
+   Linux (ubuntu) - /var/lib/docker (info about docker components/objects are stored by Docker)
+
+   - Docker  creates virtual network  with IP address - 172.17.0.1 
+   - Docker has written network drivers
+
+Type of applications that can run in a containers
+---------------------------------------------------------------
+Web application (React, Node, Python, Java)
+DB Servers (postgres, MySQL, Oracle.., MongodB)
+Light-weight Linux OS tools (Debain, Alpine, Busybox, Ubuntu
+Tools - Jenkins, Terraform, Promoetheus, Grafana
+
+Installation of Jenkins
+Windows -> WSL (Ubuntu) -> update OS -> Install Java, then Install JEnkins -> Access Jenkins server
+
+or
+
+Browser -> Login into AWS -> Create Linux VM ->  Install Java, then Install Jenkins -> Access Jenkins server
+
+
+With Docker -> Windows -> WSL (ubuntu) -> Docker -> Take Ready image of Jenkins -> Run Container [docker container run <<jenkins image>>] -> Access the application 
+
+Browser -> Login into AWS -> Create Linux VM ->  Docker -> Take Ready image of Jenkins -> Run Container [docker container run <<jenkins image>>] -> Access the application 
+
+Browser -> Login into AWS -> AWS ECS -> Container Technology (Elastics Container service) -> Ready Image -> ECS will run and manage containers
+
+
+
+
+Images ???
+1. Write the image and build it 
+or
+2. Pull the ready image from docker repository (Available on Internet - Docker Hub / AWS - ECR or Azure cloud)
+
+
+Practicals
+
+
+docker image ls
+
+or
+
+docker images
+
+
+Name of Image : <nameofimage>:<tag>
+
+jenkins:2.60.3 // Linux - libraies?
+jenkins:alpine  // Linux - alpine libraries
+Jenkins:latest // latest is the default tag
+
+
+
+docker pull // old command
+
+
+main command category
+image
+container
+volume
+network
+
+sub-command category
+pull
+push
+build
+
+
+1. Pulled the hello-world image
+
+docker image pull hello-world:latest
+
+or
+docker image pull hello-world
+  // use default tag : latest
+
+Compares the sha256 for the image to be pulled
+
+SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that converts any input data into a fixed-size 256-bit (32-byte) "hash" or "fingerprint". 
+
+docker container run options
+ --name : to name a container / -n
+-p : assign application port to the host (used for web  app and db)
+--attach /--detach
+--network - assign network to a container
+--volume - assign storage to a container
+--env - set the environment variables for the container(app)
+--rm - delete the container info
+
+
+By default, all application output / logs are displayed on the Linux terminal (screen)
+
+
+Running the container - docker container run hello-world:latest
+
+
+main(){
+
+printf("hello-world")
+for(1 to 100){..}
+exit 1
+}
+
+console-based app - will terminate once code execution is completed
+web app -> based on http, hence waits for client request 
+
+Life of container  = Life of application
+
+
+docker container ls - running containers
+docker ps -a (Exited containers)
+
+Container Life Cycle
+1. Verify if the image exists take it from local machine, if not pull the image 
+2. The container is created in the memory
+3. Run the container 
+4. start the application inside the container CMD /hello
+5. Display the output of application on the Linux console
+6. If application exited, exit the container
+
+
+Container info
+ - container id
+- container name 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
