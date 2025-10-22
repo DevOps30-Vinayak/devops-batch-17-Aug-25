@@ -395,6 +395,306 @@ Container info
 
 
 
+Images:
+Images are made up of  file system changes and metadata
+Each layer is unique identified and only stored once on a host
+This saves storage space on host and transfer time in push/pull
+
+
+Linux script
+
+  apt install nginx
+  copy <source path>  <destination-path>
+
+Docker recipe (script)
+
+RUN apt install nginx
+COPY ./app.js    /usr/app
+CMD ["node", "app.js"] // start the application in container
+
+
+
+Next step:
+
+docker image build <image-name>
+
+build will create the layers
+
+
+
+Scenario: to create a basic image with Debian tools.
+
+ docker image build -t mybasicimg:oct25
+
+
+
+GIT - code 
+To push image to the docker repository (Dockerhub)
+
+   - create the image tag with dockerhub username
+    tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+    docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+
+Tagging the image: The image must be tagged with the full repository name and optionally a tag (e.g., username/repository:tag). This typically involves using the docker tag command.
+   - push the image
+  
+
+From Linux distro image -> Get only Linux tools, FROM Debian:....
+FRom software image , FROM  optimized : nginx:1.29.2-alpine
+
+
+
+CMD  -> Change the command to execute in the container at the runtime
+
+docker container run nginx:prod mkdir test
+
+project express - 4.17 -----> Nodejs 14.x
+
+
+nodeproject'  
+
+    app.js
+    package.json
+
+
+cd nodeproject
+
+nodeproject>ls
+app.js
+package.json (EXPRESSJS)
+
+
+nodeproject> npm install
+
+node_modules
+  libraries downloaded
+
+nodeproject>  node app.js
+
+
+Assignment on Docker - DevOps Scenario Question
+   - python
+   - flask API to create web applications
+
+ Dockerize the python web application
+
+
+Scenario: Run a MYSQL sever -> data needs to be stored - completed
+
+create a volume for MYSQL Containers - completed
+
+Why volumes - data storage from containers - MYSQL (RDMS), MongoDB (NO SQL DB), Redis, h2 (in-memory db)
+  |
+Docker creates volumes - /var/lib/docker/volumes (named volumes)
+  |
+Create the volume - docker volume create <volume-name>
+Add a volume to a container: docker container run  -v    mysqldata:/var/lib/mysql     mysql:latest
+ Volumes are read-write 
+
+|
+if container is destroyed, volumes will still exist
+
+To work with volumes - 
+
+docker volume ls
+docker volume create ...
+docker volume inspect <volume-name>
+
+Types of volumes in docker
+ - Named volumes - volumes created and managed by docker. docker volume create...
+ - Bind volumes - when you want to mount your project files in the container at the start
+nginx project
+    - index.html --------------> NGINX container
+                           mount
+
+bind volumes
+nginxproject>docker container run --mount type=volume -v ./index.html:/usr/share/nginx/html
+docker run --mount type=volume,src=myvolume,dst=/data,ro,volume-subpath=/foo
+
+Named volumes
+docker create volume mynginxdata
+docker container run -v mynginxdata:/usr/share/nginx/html mynginx:latest
+
+-DBProject
+    - dbinitscript ---------------> mounted in MySQL container
+
+ -v abc:/usr/share/nginx/index.html
+
+
+Scenario for mounting project files from Linux host into the container.
+
+
+docker container run -d --name web5 -p 9000:80 --mount type=bind,src=.,dst=/usr/share/nginx/html,ro nginx:latest
+You
+10:28 AM
+docker logs web5
+docker container inspect web5
+check Mount section:
+ "Mounts": [
+                {
+                    "Type": "bind",
+                    "Source": "/home/user1/dockerws/bindvolmedemo",
+                    "Target": "/usr/share/nginx/html",
+                    "ReadOnly": true
+                }
+            ],
+docker container exec -it web5 /bin/bash
+You
+10:30 AM
+Send request to the nginx app - http://localhost:9000/
+
+-------------------------------------------------------------------------------------------------------------------
+Docker compose tool
+
+Run container with scripts
+
+Why to use docker compose
+  - Manage multiple containers 
+  - write configurations of containers in a file named as *.yaml/*.yml
+  - Remember, to run containers, we need images
+
+Example:
+
+Node Project  uses database <----------------------> DB
+ Container 1                                                    Container 2
+ NodeJS                                                           Mongo DB
+(Custom image)                                                (Dockerhub)
+Dockerfile     
+depends_on: name of mongodb started by docker compose
+
+ 
+ - Nginx server run as container (image can be pulled from Dockerhub)
+ - MySQL database server as container (image can be pulled from Dockerhub)
+ - Python / NodeJS application as container (in need to build the image)
+
+
+YAML Syntax
+YAML - Yet Another MArkup Language
+Web technologies  - HTML (<p>  </p>, <h1> </h1>) - <> called as MArkup
+HTML - markup language defined by W3c (W3 - World Wide Web)
+
+Devops Tools - Based on Configurations 
+Kubernetes, Docker-compose, Terraform, Ansible - need configurations 
+
+Configurations are written for Devops Tools
+Configurations are written in declarative syntax
+
+Declarative syntax - What do you want  ------> Tool
+
+Nginx
+  Image:
+  Port:
+  Network:
+  Volume
+
+
+
+Imperative Syntax - Linux script/Java/ Node/ Python Code
+Imperative Syntax - What do you want + How to do that
+Example:
+
+change the permission of ten files
+
+for x in file1 file2 file3
+do
+  chmod 777 $x
+
+done
+
+
+Array : skills[3] = {"Docker", "Kubernetes", "Terraform"}
+ 
+
+SQL language - Declarative or Imperative
+
+SQL - Select * from employee;  // command  - Declarative
+
+Result  - table with all records
+
+
+HTML - <h1>  text  </h1> // - Declarative
+
+   ----------------------------------------------------------------------------------------------
+
+  Docker Compose - Declarative Syntax - YAML format
+
+
+What yaml - YAML (YAML Ain't Markup Language) is a human-friendly data  standard often used for configuration files in Devops
+
+Key-Value Pairs (Mappings/Dictionaries):
+Represented as key: value.
+Indentation defines hierarchy. 
+
+
+
+Yaml format
+ user:
+          id: 123 # single value
+          details:  # dictionary 
+            name: Jane Doe
+            email: jane.doe@example.com
+          roles: # List or Array
+            - admin
+            - editor
+
+JSON format  -
+user = {
+"id": 123, 
+"details": {"name": "jane" , "email": "jane.doe@.." },
+roles: ["admin", "editor"]
+}
+
+
+
+Devop tools  use yaml format to define their sepecifications or APIs
+
+
+docker compose yaml file
+
+version: "1.29.2"
+
+services:  // docker container run
+  - containers
+
+networks:  // docker network create mynetwork
+  - "mynetwork"
+
+volumes: // docker volume create mysqldata
+  - mysqldata  
+
+
+
+Python - connect(database_url="mysql://information of dbcontainert:3306/mydatadb",
+ username="{POSTGRES_USER}" -> "user"
+ password="password"
+)
+
+
+scenario : run a nginx container using docker compose
+
+docker run --name web1 -d -p 8990:80 - run suing docker compose
+
+├── nginx-docker-compose-demo
+│   ├── app
+│   │   └── index.html
+│   └── docker-compose.yaml
+
+                                                      
+
+Docker compose practice example
+
+ - node project 
+
+ - mysql project
+
+python - mysql 
+
+
+
+
+
+
+
 
 
 
